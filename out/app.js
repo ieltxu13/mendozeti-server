@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var logger = require("morgan");
 var bodyParser = require("body-parser");
+var path = require("path");
 var mongoose = require("mongoose");
 var cors = require("cors");
 var index_1 = require("./routes/index");
@@ -20,6 +21,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/api', index_1.default);
 app.use('/auth', auth_routes_1.authRoutes);
+// Point static path to dist
+app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

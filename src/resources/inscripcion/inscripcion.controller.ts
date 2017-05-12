@@ -2,12 +2,18 @@ import { Eti } from '../eti/eti.model';
 import * as nodemailer from 'nodemailer';
 
 export function createInscripcion(req, res) {
+  let inscripcion = req.body;
   Eti.findById(req.params.etiId).exec()
   .then(eti => {
     if(eti.estado !== 'activo') {
       res.status(500);
     }
-    eti.inscripciones = [ ...eti.inscripciones,  req.body ];
+    if(eti.inscripciones.length < eti.capacidad) {
+      inscripcion.estado = "Pre inscripto";
+    } else {
+      inscripcion.estado = "En lista de espera";
+    }
+    eti.inscripciones = [ ...eti.inscripciones,  inscripcion ];
     eti.save()
     .then(() => {
       // create reusable transporter object using the default SMTP transport

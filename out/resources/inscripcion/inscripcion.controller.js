@@ -3,12 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var eti_model_1 = require("../eti/eti.model");
 var nodemailer = require("nodemailer");
 function createInscripcion(req, res) {
+    var inscripcion = req.body;
     eti_model_1.Eti.findById(req.params.etiId).exec()
         .then(function (eti) {
         if (eti.estado !== 'activo') {
             res.status(500);
         }
-        eti.inscripciones = eti.inscripciones.concat([req.body]);
+        if (eti.inscripciones.length < eti.capacidad) {
+            inscripcion.estado = "Pre inscripto";
+        }
+        else {
+            inscripcion.estado = "En lista de espera";
+        }
+        eti.inscripciones = eti.inscripciones.concat([inscripcion]);
         eti.save()
             .then(function () {
             // create reusable transporter object using the default SMTP transport

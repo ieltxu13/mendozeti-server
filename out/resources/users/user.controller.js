@@ -16,7 +16,7 @@ function updateUser(req, res) {
 }
 exports.updateUser = updateUser;
 function getUser(req, res) {
-    Eti.findById(req.params.userId)
+    user_model_1.User.findById(req.params.userId)
         .then(function (eti) {
         res.status(200).json(eti);
     })
@@ -28,7 +28,7 @@ exports.getUser = getUser;
 function getUsers(req, res) {
     user_model_1.User.find()
         .then(function (users) {
-        console.log(etis);
+        console.log(users);
         res.status(200).json(users);
     })
         .catch(function (err) {

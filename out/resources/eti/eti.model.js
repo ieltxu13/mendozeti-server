@@ -7,6 +7,7 @@ exports.EtiSchema = new mongoose_1.Schema({
     createdAt: Date,
     nombre: String,
     estado: String,
+    capacidad: Number,
     inscripciones: [inscripcion_model_1.Inscripcion.schema]
 });
 exports.EtiSchema.pre('save', function (next) {

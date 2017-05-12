@@ -8,6 +8,7 @@ export let EtiSchema: Schema = new Schema({
   createdAt: Date,
   nombre: String,
   estado: String,
+  capacidad: Number,
   inscripciones: [Inscripcion.schema]
 })
 
@@ -16,6 +17,7 @@ EtiSchema.pre('save', next => {
   if (!this.createdAt) {
     this.createdAt = now;
   }
+
   next();
 })
 
