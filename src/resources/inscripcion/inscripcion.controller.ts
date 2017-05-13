@@ -1,6 +1,9 @@
 import { Eti } from '../eti/eti.model';
 import { User } from '../users/user.model';
 import * as nodemailer from 'nodemailer';
+import * as _ from 'lodash';
+import * as mongoose from 'mongoose';
+let ObjectId = mongoose.Types.ObjectId
 
 export function createInscripcion(req, res) {
   let inscripcion = req.body;
@@ -111,16 +114,60 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
 }
 
 export function updateInscripcion(req, res) {
-  return res.status(500).send('Sin implementar');
+  Eti.findById(req.params.etiId).exec()
+  .then(eti => {
+    let inscripcionIndex = _.findIndex(eti.inscripciones, {'_id': ObjectId(req.params.inscripcionId)});
+    let estadoViejo = eti.inscripciones[inscripcionIndex].estado;
+    eti.inscripciones = [
+      ... eti.inscripciones.slice(0, inscripcionIndex),
+      req.body,
+      ... eti.inscripciones.slice(inscripcionIndex + 1)
+    ]
+    eti.save()
+      .then(eti => {
+        console.log('estado viejo', estadoViejo);
+        console.log('estado nuevo', req.body.estado);
+        if (req.body.estado == 'Inscripto' && estadoViejo == 'Pre inscripto') {
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'ieltxu.alganaras@gmail.com',
+            pass: 'B83f3I4wNpHcezlaDdCaobrJ0DrKMy1p62NeF6ZNxB0n3cRv12'
+          }
+        });
+
+        // setup email data with unicode symbols
+        let mailOptions = {
+          from: '"Mendozeti" <foo@blurdybloop.com>', // sender address
+          to: req.body.email, // list of receivers
+          subject: 'Confirmación inscripción Mendozeti ✔', // Subject line
+          text: 'Test', // plain text body
+          html: `<b>Inscripcion confirmada</b>` // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            res.send(error);
+          }
+          console.log('Message %s sent: %s', info.messageId, info.response);
+            res.send('okeyyyyy');
+        });
+      }
+    });
+  });
 }
 
 export function getInscripcion(req, res) {
   Eti.findOne({
-    '_id': req.params.etiId,
-    'inscripciones._id': req.params.inscripcionId
+    '_id': req.params.etiId
   }).exec()
-  .then(inscripcion => {
+  .then(eti => {
+    var inscripcion = _.find(eti.inscripciones, {'_.id' : req.params.inscripcionId});
+
     res.json(inscripcion);
+
   })
   .catch(err => {
     res.status(500);
