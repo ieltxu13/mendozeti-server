@@ -1,4 +1,5 @@
 import { Eti } from '../eti/eti.model';
+import { User } from '../users/user.model';
 import * as nodemailer from 'nodemailer';
 
 export function createInscripcion(req, res) {
@@ -13,9 +14,23 @@ export function createInscripcion(req, res) {
     } else {
       inscripcion.estado = "En lista de espera";
     }
-    eti.inscripciones = [ ...eti.inscripciones,  inscripcion ];
-    eti.save()
-    .then(() => {
+    updateEti(eti, inscripcion, req, res);
+  })
+  .catch(err => {
+    res.status(500);
+  })
+}
+
+function updateEti(eti, inscripcion, req, res){
+  eti.inscripciones = [ ...eti.inscripciones,  inscripcion ];
+  eti.save()
+  .then(() => {
+    if(inscripcion.estado == "Pre inscripto"){
+      createUsuarioPreInscripto(eti, inscripcion).then(usuarioCreado => {
+        console.log('que onda wacho', usuarioCreado);
+        handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res);
+      });
+    }else{
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -43,15 +58,56 @@ export function createInscripcion(req, res) {
         console.log('Message %s sent: %s', info.messageId, info.response);
         res.json(eti);
       });
-
-    })
-    .catch(err => {
-      res.status(500);
-    })
+    }
   })
   .catch(err => {
     res.status(500);
   })
+}
+
+async function createUsuarioPreInscripto(eti, inscripcion){
+
+  var usuario = {
+    'usuario': inscripcion.documento,
+    'password': '1234',
+    'eti': eti._id,
+    'admin': false,
+    'nombre': `${inscripcion.nombre} ${inscripcion.apellido}`
+  }
+
+  return User.create(usuario);
+}
+
+function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ieltxu.alganaras@gmail.com',
+      pass: 'B83f3I4wNpHcezlaDdCaobrJ0DrKMy1p62NeF6ZNxB0n3cRv12'
+    }
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: '"Mendozeti" <foo@blurdybloop.com>', // sender address
+    to: inscripcion.email, // list of receivers
+    subject: 'Confirmación inscripción Mendozeti ✔', // Subject line
+    text: 'Test', // plain text body
+    html: `<b>Inscripcion confirmada</b><br/>
+    Se ha creado un nuevo usuario para que puedas subir tu comprobante de pago
+    Usuario: ${usuarioCreado.usuario} y contraseña: ${usuarioCreado.password}` // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      res.json(eti);
+      return console.log(error);
+    }
+    console.log('Message %s sent: %s', info.messageId, info.response);
+    res.send('okeyyyyy');
+  });
 }
 
 export function updateInscripcion(req, res) {
