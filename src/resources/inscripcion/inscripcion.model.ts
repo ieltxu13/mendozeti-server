@@ -17,7 +17,9 @@ export let InscripcionSchema: Schema = new Schema({
   tipoComida: String,
   fechaLlegada: String,
   fechaSalida: String,
-  estado: String
+  estado: String,
+  comprobante: String,
+  fechaInscripcion: Date
 })
 
 InscripcionSchema.pre('save', next => {

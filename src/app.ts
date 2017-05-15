@@ -25,9 +25,14 @@ app.use('/api', index);
 app.use('/auth', authRoutes);
 // Point static path to dist
 app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../uploads')));
+app.get('/resources', (req,res) => {
+  res.sendFile(path.join(__dirname, '../uploads/' + req.param('file')));
+})
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
 });
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
