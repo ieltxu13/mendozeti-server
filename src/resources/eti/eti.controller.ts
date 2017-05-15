@@ -1,7 +1,6 @@
 import { Eti } from './eti.model';
 
 export function createEti(req, res) {
-  console.log('body',req.body);
   Eti.create(req.body)
   .then(eti => {
     res.status(201).json(eti);

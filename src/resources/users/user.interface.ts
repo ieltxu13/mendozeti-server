@@ -3,5 +3,6 @@ export interface IUser {
   usuario: string,
   password: string,
   eti: string,
-  admin: boolean
+  admin: boolean,
+  inscripcionId: string
 }

@@ -9,7 +9,8 @@ export let UserSchema: Schema = new Schema({
   usuario: String,
   password: String,
   eti: String,
-  admin: Boolean
+  admin: Boolean,
+  inscripcionId: String
 })
 
 UserSchema.pre('save', next => {

@@ -7,7 +7,10 @@ export function authenticate(req, res) {
       console.log(user.password == req.body.password);
       if(user.password == req.body.password) {
         var token = jwt.sign({
-          nombre: user.nombre
+          inscripcionId: user.inscripcionId,
+          nombre: user.nombre,
+          admin: user.admin,
+          eti: user.eti
         }, 'secret');
 
         res.json(token);
