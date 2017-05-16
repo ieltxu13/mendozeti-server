@@ -12,6 +12,11 @@ export function createInscripcion(req, res) {
     if(eti.estado !== 'activo') {
       res.status(500);
     }
+    let duplicatedDocument = _.find(eti.inscripciones, {'documento': inscripcion.documento});
+    if(duplicatedDocument) {
+      res.status(500).send('Ya existe alguien inscripto con ese documento');
+      return;
+    }
     if(eti.inscripciones.length < eti.capacidad) {
       inscripcion.estado = "Pre inscripto";
     } else {
@@ -182,7 +187,7 @@ export function updateInscripcion(req, res) {
           from: '"Mendozeti" <foo@blurdybloop.com>', // sender address
           to: req.body.email, // list of receivers
           subject: 'Confirmación inscripción Mendozeti ✔', // Subject line
-          text: 'Test', // plain text body
+          text: '', // plain text body
           html: `<b>Inscripcion confirmada</b>
           <p>Ya está todo listo! Te esperamos!</p>
           ` // html body
@@ -196,6 +201,8 @@ export function updateInscripcion(req, res) {
           console.log('Message %s sent: %s', info.messageId, info.response);
             res.send();
         });
+      } else {
+        res.send();
       }
     });
   });
