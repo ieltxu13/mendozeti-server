@@ -4,5 +4,6 @@ export interface IEti {
   nombre: string;
   estado: string;
   capacidad: number;
+  inscripcionesAbiertas: boolean;
   inscripciones: IInscripcion[];
 }
