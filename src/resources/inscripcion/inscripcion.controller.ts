@@ -44,8 +44,8 @@ function updateEti(eti, inscripcion, req, res){
       let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'ieltxu.alganaras@gmail.com',
-          pass: 'B83f3I4wNpHcezlaDdCaobrJ0DrKMy1p62NeF6ZNxB0n3cRv12'
+          user: 'inscripciones.mendozeti@gmail.com',
+          pass: 'eti23mendozeti'
         }
       });
 
@@ -98,8 +98,8 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'ieltxu.alganaras@gmail.com',
-      pass: 'B83f3I4wNpHcezlaDdCaobrJ0DrKMy1p62NeF6ZNxB0n3cRv12'
+      user: 'inscripciones.mendozeti@gmail.com',
+      pass: 'eti23mendozeti'
     }
   });
 
@@ -177,8 +177,8 @@ export function updateInscripcion(req, res) {
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: 'ieltxu.alganaras@gmail.com',
-            pass: 'B83f3I4wNpHcezlaDdCaobrJ0DrKMy1p62NeF6ZNxB0n3cRv12'
+            user: 'inscripciones.mendozeti@gmail.com',
+            pass: 'eti23mendozeti'
           }
         });
 
