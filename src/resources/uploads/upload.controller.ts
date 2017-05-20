@@ -11,7 +11,7 @@ var storage = multer.diskStorage({
   },
   // renombrar fichero
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, req.params.inscripcionId);
   }
 });
 var upload = multer({ storage: storage }).single('file');
@@ -35,6 +35,6 @@ export function uploadFile(req, res) {
       });
   })
   .catch(err => {
-    res.status(500);
+    res.status(500).send(err);
   })
 }

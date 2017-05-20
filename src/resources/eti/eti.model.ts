@@ -10,6 +10,10 @@ export let EtiSchema: Schema = new Schema({
   estado: String,
   capacidad: Number,
   inscripcionesAbiertas: Boolean,
+  precioCombo: Number,
+  precioAlojamiento: Number,
+  precioSeminario: Number,
+  capacidadAlojamiento: Number,
   inscripciones: [Inscripcion.schema]
 })
 

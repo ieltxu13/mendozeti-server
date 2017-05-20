@@ -20,7 +20,7 @@ export function getEti(req, res) {
     res.status(200).json(eti);
   })
   .catch(err => {
-    res.status(500);
+    res.status(500).send();
   })
 }
 
@@ -31,7 +31,7 @@ export function getEtis(req, res) {
     res.status(200).json(etis);
   })
   .catch(err => {
-    res.status(500);
+    res.status(500).send();
   })
 }
 
