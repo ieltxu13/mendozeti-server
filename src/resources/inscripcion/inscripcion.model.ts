@@ -12,14 +12,20 @@ export let InscripcionSchema: Schema = new Schema({
   provincia: String,
   ciudad: String,
   email: String,
-  telefono1: String,
-  telefono2: String,
+  telefono: String,
+  whatsapp: Boolean,
+  telefonoEmergencia: String,
+  seminario: Boolean,
+  turnoSeminario: String,
+  alojamiento: Boolean,
   tipoComida: String,
   fechaLlegada: String,
   fechaSalida: String,
   estado: String,
   comprobante: String,
-  fechaInscripcion: Date
+  fechaInscripcion: Date,
+  fechaPreInscripcion: Date,
+  referenciaComprobante: String
 })
 
 InscripcionSchema.pre('save', next => {

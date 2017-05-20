@@ -6,4 +6,8 @@ export interface IEti {
   capacidad: number;
   inscripcionesAbiertas: boolean;
   inscripciones: IInscripcion[];
+  precioCombo: number;
+  precioAlojamiento: number;
+  precioSeminario: number;
+  capacidadAlojamiento: number;
 }

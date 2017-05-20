@@ -6,7 +6,7 @@ export function createUser(req, res) {
     res.status(201).json(user);
   })
   .catch(err => {
-    res.status(500);
+    res.status(500).send('Error al crear el usuario');
   });
 }
 
@@ -31,7 +31,7 @@ export function getUsers(req, res) {
     res.status(200).json(users);
   })
   .catch(err => {
-    res.status(500);
+    res.status(500).send('Error al obtener usuarios');
   })
 }
 
