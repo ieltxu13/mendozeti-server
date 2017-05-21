@@ -64,7 +64,8 @@ function updateEti(eti, inscripcion, req, res){
         <br>
         <p>Debido a la cantidad de personas que se pre-inscribieron alcanzó la capaciad,</p>
         <p>has quedado en lista de espera, en cuanto se libere un lugar serás informado vía mail</p>
-        `      };
+        `
+      };
 
       // send mail with defined transport object
       transporter.sendMail(mailOptions, (error, info) => {
@@ -106,6 +107,9 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
       pass: 'eti23mendozeti'
     }
   });
+  let alojamiento = inscripcion.alojamiento ? eti.precioAlojamiento : 0;
+  let seminario = inscripcion.seminario ? eti.precioSeminario : 0;
+  let totalAPagar = eti.precioCombo + alojamiento + seminario;
 
   // setup email data with unicode symbols
   let mailOptions = {
@@ -137,20 +141,27 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
     Sucursal: 115<br>
     Domicilio: 9 de Julio 1228-Cdad-Mza.<br>
     <br>
-
-     Tenés que transferir el valor  del combo ($650) y si queres asegurarte el seminario y el alojamiento podrás agregar el valor de estos  OPCIONALES (seminario y/o alojamiento x 3 noches)<br>
-    a) COMBO: el valor del COMBO $650 <br>
-    b) OPCIONAL 1 SEMINARIO de OLGA BESIO: $40 (CUPO 100 personas por cada seminario) <br>
-    c) OPCIONAL 2 ALOJAMIENTO ESCUELA HOGAR:  $500 (OPCIONAL  - CUPO 400 PLAZAS) <br>
+    <p>
+    Detalle
+    </p>
+     Tenés que transferir el valor  de:$ ${totalAPagar} detalle + alojamiento<br>
+    -) COMBO: ($${eti.precioCombo}) <br>
+    ${inscripcion.alojamiento ? '-) ALOJAMIENTO: ($'+ eti.precioAlojamiento + ')' : ''}
+    ${inscripcion.seminario ? '-) SEMINARIO: ($'+ eti.precioSeminario + ')' : ''}
     <br>
-    <p>ENVIANOS EL  COMPROBANTE:   Entrá en www.etitango.com , abrí el menú “Inscripciones MendozETI” y entra en la pestaña “SUBIR COMPROBANTE” y envianos la imagen del comprobante para completar la INSCRIPCION. En un plazo de 72 hs. podrás comprobar tu estado de “inscripto”.  El comprobante deberas guardarlo y tenerlo al momento de la ACREDITACION en Mendoza
-    Atencion! Si el deposito corresponde a mas de un inscripto deberas subir nuevamente el comprobante a nombre del/l@s inscript@s </p>
+    <p>ENVIANOS EL  COMPROBANTE:   Entrá en <a href="http://inscripcioneseti.com/login">AQUÍ</a>
+    Inicia sesión con tu usuario y contraseña:</p>
+    <p>Usuario:  ${usuarioCreado.usuario}</p>
+    <p>Contraseña: ${usuarioCreado.password}</p>
+    <p>una vez adentro, podrás subir un archivo de tu computadoracon la imagen o pdf del comprobante para completar la INSCRIPCION.
+    <p>El comprobante deberas guardarlo y tenerlo al momento de la ACREDITACION en Mendoza
+    Atencion! Si el deposito corresponde a mas de un inscripto deberas subir nuevamente el comprobante a nombre del/l@s inscript@s
+    En un plazo de 72 hs. podrás comprobar tu estado de “inscripto”. <a href="http://inscripcioneseti.com/eti/${eti._id}">AQUÍ</a>
+    entrando con el usuario y la contraseña que llegó a el mail especificado en cada formulario de inscripción.
+    Tambien podrás enviar el comprobante a inscripciones.mendozeti@gmail.com indicando a quienes corresponde el deposito.</p>
     <br>
     <p style="color: red">No te olvides el PLAZO: 7 DIAS desde que enviamos este correo
-     para hacer el DEPÓSITO y SUBIR EL COMPROBANTE!!!!</p>
-
-    Se ha creado un nuevo usuario para que puedas subir tu comprobante de pago
-    Usuario: ${usuarioCreado.usuario} y contraseña: ${usuarioCreado.password}`
+     para hacer el DEPÓSITO y SUBIR EL COMPROBANTE!!!!</p>`
   };
 
   // send mail with defined transport object
