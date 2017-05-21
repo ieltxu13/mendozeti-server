@@ -119,13 +119,12 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
     to: inscripcion.email, // list of receivers
     subject: `Confirmación Pre inscripcion Mendozeti ✔ ${inscripcion.nombre} ${inscripcion.apellido}`, // Subject line
     text: '', // plain text body
-    html: `<b>Ya estás preinscripto</b><br/>
+    html: `
     <h2>YA ESTAS PRE-INSCRIPTO!!! </h2>
-    En el plazo de SIETE (7) DIAS HÁBILES  desde que recibiste este correo deberás
-    hacer el deposito/transferencia  en  esta cuenta y SUBIR EL COMPROBANTE A TRAVES
-    DE LA PÁGINA www.etitango.com O ENVIARNOSLO POR EMAIL A inscripciones.mendozeti@gmail.com
-     (dentro del mismo plazo):<br>
-    <br>
+    <h3>Pasos a seguir:</h3>
+    <p>En el plazo de SIETE (7) DIAS HÁBILES deberás:
+    <p>1) hacer el deposito/transferencia en  esta cuenta:</p>
+
     RESIDENTES EN ARGENTINA <br>
     Bco 191 <br>
     Suc 115 <br>
@@ -141,30 +140,33 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
     Nro.Cta. 18233/2<br>
     CBU: 1910115855111501823321<br>
     Sucursal: 115<br>
-    Domicilio: 9 de Julio 1228-Cdad-Mza.<br>    "nombre": "Verónica",
+    Domicilio: 9 de Julio 1228-Cdad-Mza.<br>
 
-    <br>
-    <p>
-    Detalle
-    </p>
-     Tenés que transferir el valor  de:$ ${totalAPagar} detalle + alojamiento<br>
-    -) COMBO: ($${eti.precioCombo}) <br>
-    ${inscripcion.alojamiento ? '-) ALOJAMIENTO: ($'+ eti.precioAlojamiento + ')' : ''}
-    ${inscripcion.seminario ? '-) SEMINARIO: ($'+ eti.precioSeminario + ')' : ''}
-    <br>
-    <p>Envianos el comprobante entrando <a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
+    <p>2) Envianos el comprobante entrando <a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
     <p>con estas credenciales:</p>
     <p>Usuario:  ${usuarioCreado.usuario}</p>
     <p>Contraseña: ${usuarioCreado.password}</p>
     <p>una vez adentro, podrás subir un archivo de tu computadoracon la imagen o pdf del comprobante para completar la INSCRIPCION.
-    <p>El comprobante deberas guardarlo y tenerlo al momento de la ACREDITACION en Mendoza
-    Atencion! Si el deposito corresponde a mas de un inscripto deberas subir nuevamente el comprobante a nombre del/l@s inscript@s
-    En un plazo de 72 hs. podrás comprobar tu estado de “inscripto”. <a href="http://inscripcioneseti.com/eti/${eti._id}">AQUÍ</a>
-    entrando con el usuario y la contraseña que llegó a el mail especificado en cada formulario de inscripción.
-    Tambien podrás enviar el comprobante a inscripciones.mendozeti@gmail.com indicando a quienes corresponde el deposito.</p>
-    <br>
-    <p style="color: red">No te olvides el PLAZO: 7 DIAS desde que enviamos este correo
-     para hacer el DEPÓSITO y SUBIR EL COMPROBANTE!!!!</p>`
+
+    <h3>NO TE OLVIDES!!</h3>
+    <p>El comprobante deberas guardarlo y tenerlo al momento de la ACREDITACION en Mendoza.</p>
+    <p>Si el deposito corresponde a mas de un inscripto deberas subir nuevamente el comprobante a nombre del/l@s inscript@s. entrando al sistema con las credenciales enviadas al correo para esa persona</p>
+    <p>En un plazo de 72 hs. podrás comprobar tu estado de "INSCRIPCION" entrando <a href="http://inscripcioneseti.com/eti/${eti._id}">AQUÍ</a>.</p>
+    <p>Tambien podrás enviar el comprobante a inscripciones.mendozeti@gmail.com indicando a quienes corresponde el deposito.</p>
+
+
+   <p>Tenés que transferir el valor  de:$ ${totalAPagar} </p>
+   <p>
+   Detalle:
+   </p>
+   <p>-COMBO: ($${eti.precioCombo}) </p>
+   <p>${inscripcion.alojamiento ? '-ALOJAMIENTO: ($'+ eti.precioAlojamiento + ')' : ''}</p>
+   <p>${inscripcion.seminario ? '-SEMINARIO: ($'+ eti.precioSeminario + ')' : ''}</p>
+
+   <p style="color: red">No te olvides el PLAZO: 7 DIAS desde que enviamos este correo
+   para hacer el DEPÓSITO y SUBIR EL COMPROBANTE!!!!</p>
+     `
+
   };
 
   // send mail with defined transport object
@@ -202,9 +204,7 @@ export function updateInscripcion(req, res) {
         // create reusable transporter object    "nombre": "Verónica",
         let transporter = nodemailer.createTransport({
           service: 'gmail',
-          auth: {
-            user: 'inscripciones.mendozeti@gmail.com',
-            pass: 'eti23mendozeti'
+          auth: {${totalAPagar}
           }
         });
 
