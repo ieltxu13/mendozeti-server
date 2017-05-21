@@ -152,8 +152,8 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
     ${inscripcion.alojamiento ? '-) ALOJAMIENTO: ($'+ eti.precioAlojamiento + ')' : ''}
     ${inscripcion.seminario ? '-) SEMINARIO: ($'+ eti.precioSeminario + ')' : ''}
     <br>
-    <p>ENVIANOS EL  COMPROBANTE:   Entrá en <a href="http://inscripcioneseti.com/login">AQUÍ</a>
-    Inicia sesión con tu usuario y contraseña:</p>
+    <p>Envianos el comprobante entrando <a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
+    <p>con estas credenciales:</p>
     <p>Usuario:  ${usuarioCreado.usuario}</p>
     <p>Contraseña: ${usuarioCreado.password}</p>
     <p>una vez adentro, podrás subir un archivo de tu computadoracon la imagen o pdf del comprobante para completar la INSCRIPCION.
