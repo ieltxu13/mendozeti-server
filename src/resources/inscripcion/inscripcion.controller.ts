@@ -57,13 +57,15 @@ function updateEti(eti, inscripcion, req, res){
       let mailOptions = {
         from: '"Mendozeti" <foo@blurdybloop.com>', // sender address
         to: req.body.email, // list of receivers
-        subject: 'Inscripcion Mendozeti ✔', // Subject line
+        subject: `Inscripcion Mendozeti ✔ ${inscripcion.nombre} ${inscripcion.apellido}`, // Subject line
         text: '', // plain text body
         html: `
         <b>Tu pre-inscripcion se completó con éxito</b>
         <br>
-        <p>Debido a la cantidad de personas que se pre-inscribieron alcanzó la capaciad,</p>
+        <p>Debido a la cantidad de personas que se pre-inscribieron se alcanzó el límite</p>
         <p>has quedado en lista de espera, en cuanto se libere un lugar serás informado vía mail</p>
+        <p>No realices ningún depósito y/o transferencia hasta que no te avisemos que ya tenés un lugar y podés hacerlo.</p>
+        <p>Podés acceder al listado de inscriptos <a href="http://inscripcioneseti.com/eti/${eti._id}">AQUÍ</a></p>
         `
       };
 
@@ -115,7 +117,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
   let mailOptions = {
     from: '"Mendozeti" <inscripciones.mendozeti@gmail.com>', // sender address
     to: inscripcion.email, // list of receivers
-    subject: 'Confirmación Pre inscripcion Mendozeti ✔', // Subject line
+    subject: `Confirmación Pre inscripcion Mendozeti ✔ ${inscripcion.nombre} ${inscripcion.apellido}`, // Subject line
     text: '', // plain text body
     html: `<b>Ya estás preinscripto</b><br/>
     <h2>YA ESTAS PRE-INSCRIPTO!!! </h2>
@@ -139,7 +141,8 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res){
     Nro.Cta. 18233/2<br>
     CBU: 1910115855111501823321<br>
     Sucursal: 115<br>
-    Domicilio: 9 de Julio 1228-Cdad-Mza.<br>
+    Domicilio: 9 de Julio 1228-Cdad-Mza.<br>    "nombre": "Verónica",
+
     <br>
     <p>
     Detalle
@@ -196,7 +199,7 @@ export function updateInscripcion(req, res) {
     eti.save()
       .then(eti => {
         if (req.body.estado == 'Inscripto' && estadoViejo == 'Pre inscripto') {
-        // create reusable transporter object using the default SMTP transport
+        // create reusable transporter object    "nombre": "Verónica",
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -209,7 +212,7 @@ export function updateInscripcion(req, res) {
         let mailOptions = {
           from: '"Mendozeti" <foo@blurdybloop.com>', // sender address
           to: req.body.email, // list of receivers
-          subject: 'Confirmación inscripción Mendozeti ✔', // Subject line
+          subject: `Confirmación Inscripcion Mendozeti ✔ ${req.body.nombre} ${req.body.apellido}`, // Subject line
           text: '', // plain text body
           html: `<b>Inscripcion confirmada</b>
           <p>Ya está todo listo! Te esperamos!</p>
@@ -219,22 +222,13 @@ export function updateInscripcion(req, res) {
         // send mail with defined transport object
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
-            res.send(error);
+            res.json(eti);
+            return console.log(error);
           }
           console.log('Message %s sent: %s', info.messageId, info.response);
-            res.send();
-        });
-      } if(req.body.estado == 'Vencido' && estadoViejo == 'Pre inscripto') {
-        createUsuarioPreInscripto(eti, inscripcionEnEspera).then(usuarioCreado => {
-          handleUsusarioPreInscripto(eti, inscripcionEnEspera, usuarioCreado, res);
-        });
-      }
-       else {
-        res.send();
-      }
-    },
-    error => {
-      res.status(500).send('Error al guardar la inscripcion');
+          res.send();
+          });
+        }
     });
   });
 }
