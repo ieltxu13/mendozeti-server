@@ -15,10 +15,10 @@ export function authenticate(req, res) {
 
         res.json(token);
       } else {
-        res.status(401);
+        res.status(401).send();;
       }
     })
     .catch(err => {
-      res.status(500);
+      res.status(500).send();
     })
 }
