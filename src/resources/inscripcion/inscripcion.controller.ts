@@ -204,7 +204,9 @@ export function updateInscripcion(req, res) {
         // create reusable transporter object    "nombre": "Verónica",
         let transporter = nodemailer.createTransport({
           service: 'gmail',
-          auth: {${totalAPagar}
+          auth: {
+            user: 'inscripciones.mendozeti@gmail.com',
+            pass: 'eti23mendozeti'
           }
         });
 
