@@ -25,7 +25,10 @@ export let InscripcionSchema: Schema = new Schema({
   comprobante: String,
   fechaInscripcion: Date,
   fechaPreInscripcion: Date,
-  referenciaComprobante: String
+  referenciaComprobante: String,
+  remera: Boolean,
+  talleRemera: String,
+  abrazo: String
 })
 
 InscripcionSchema.pre('save', next => {

@@ -3,6 +3,7 @@ export interface IComprobante {
   combos: number;
   alojamientos: number;
   seminarios: number;
+  fechaYHora: string;
   total: number;
   eti: string;
 }

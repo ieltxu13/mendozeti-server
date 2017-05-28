@@ -21,4 +21,7 @@ export interface IInscripcion {
   fechaInscripcion: Date;
   fechaPreInscripcion: Date;
   referenciaComprobante: string;
+  remera: boolean;
+  talleRemera: string;
+  abrazo: string;
 }

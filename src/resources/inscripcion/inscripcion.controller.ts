@@ -111,6 +111,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
   });
   let alojamiento = inscripcion.alojamiento ? eti.precioAlojamiento : 0;
   let seminario = inscripcion.seminario ? eti.precioSeminario : 0;
+  let remera = inscripcion.remera ? eti.precioRemera : 0;
   let totalAPagar = eti.precioCombo + alojamiento + seminario;
 
   // setup email data with unicode symbols
@@ -125,28 +126,28 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
     <p>En el plazo de SIETE (7) DIAS HÁBILES deberás:
     <p>1) hacer el deposito/transferencia en  esta cuenta:</p>
 
-    RESIDENTES EN ARGENTINA <br>
-    Bco 191 <br>
-    Suc 115 <br>
-    Cta CA $ <br>
-    Nro Cta. 0182332 <br>
-    D J TOUZA <br>
-    CBU 1910115855111501823321 <br>
-    ——————— <br>
-    RESIDENTES EN EL EXTRANJERO<br>
-    cta.Bco Credicoop MendozETI.<br>
-    Caja Ahorro<br>
-    Swiff: "BCOOAABA"<br>
-    Nro.Cta. 18233/2<br>
-    CBU: 1910115855111501823321<br>
-    Sucursal: 115<br>
-    Domicilio: 9 de Julio 1228-Cdad-Mza.<br>
+    RESIDENTES EN ARGENTINA
+    Bco 191
+    Suc 115
+    Cta CA $
+    Nro Cta. 0182844
+    PANNOCCHIA JOSE LUCIANO
+    CBU 1910115855111501828449
+    ———————
+    RESIDENTES EN EL EXTRANJERO
+    cta.Bco Credicoop MendozETI.
+    Caja Ahorro
+    Swiff: "BCOOAABA"
+    Nro.Cta. 18233/2
+    CBU 1910115855111501828449
+    Sucursal: 115
+    Domicilio: 9 de Julio 1228-Cdad-Mza.
 
-    <p>2) Envianos el comprobante entrando <a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
-    <p>con estas credenciales:</p>
-    <p>Usuario:  ${usuarioCreado.usuario}</p>
-    <p>Contraseña: ${usuarioCreado.password}</p>
+    <p>2) Envianos el comprobante con estas credenciales: </p>
+    <p style="color: red; font-weight: bold;">Usuario:  ${usuarioCreado.usuario}</p>
+    <p style="color: red; font-weight: bold;">Contraseña: ${usuarioCreado.password}</p>
     <p>una vez adentro, podrás subir un archivo de tu computadoracon la imagen o pdf del comprobante para completar la INSCRIPCION.
+    <p>Entra <a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
 
     <h3>NO TE OLVIDES!!</h3>
     <p>El comprobante deberas guardarlo y tenerlo al momento de la ACREDITACION en Mendoza.</p>
@@ -162,6 +163,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
    <p>-COMBO: ($${eti.precioCombo}) </p>
    <p>${inscripcion.alojamiento ? '-ALOJAMIENTO: ($' + eti.precioAlojamiento + ')' : ''}</p>
    <p>${inscripcion.seminario ? '-SEMINARIO: ($' + eti.precioSeminario + ')' : ''}</p>
+   <p>${inscripcion.remera ? '-REMERA: ($' + eti.precioRemera + ')' : ''}</p>
 
    <p style="color: red">No te olvides el PLAZO: 7 DIAS desde que enviamos este correo
    para hacer el DEPÓSITO y SUBIR EL COMPROBANTE!!!!</p>

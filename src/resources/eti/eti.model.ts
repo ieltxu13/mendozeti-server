@@ -13,6 +13,7 @@ export let EtiSchema: Schema = new Schema({
   precioCombo: Number,
   precioAlojamiento: Number,
   precioSeminario: Number,
+  precioRemera: Number,
   capacidadAlojamiento: Number,
   inscripciones: [Inscripcion.schema]
 })
