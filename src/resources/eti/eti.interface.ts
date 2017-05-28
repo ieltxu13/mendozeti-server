@@ -9,5 +9,6 @@ export interface IEti {
   precioCombo: number;
   precioAlojamiento: number;
   precioSeminario: number;
+  precioRemera: number;
   capacidadAlojamiento: number;
 }

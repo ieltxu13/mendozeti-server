@@ -9,6 +9,7 @@ export let ComprobanteSchema: Schema = new Schema({
   combos: Number,
   alojamientos: Number,
   seminarios: Number,
+  fechaYHora: String,
   total: Number,
   eti: String
 })
