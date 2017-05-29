@@ -28,7 +28,7 @@ app.use('/auth', authRoutes);
 app.use(express.static(path.join(__dirname, '../../mendozeti-client/dist')));
 app.use(express.static(path.join(__dirname, '../uploads')));
 app.get('/resources', (req,res) => {
-  res.sendFile(path.join(__dirname, '../uploads/' + req.params['file']));
+  res.sendFile(path.join(__dirname, '../uploads/' + req.query.file));
 })
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../mendozeti-client/dist/index.html'));
