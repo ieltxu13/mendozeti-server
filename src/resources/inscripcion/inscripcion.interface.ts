@@ -24,4 +24,5 @@ export interface IInscripcion {
   remera: boolean;
   talleRemera: string;
   abrazo: string;
+  notas: string;
 }
