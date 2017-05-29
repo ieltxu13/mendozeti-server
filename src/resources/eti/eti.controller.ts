@@ -27,7 +27,6 @@ export function getEti(req, res) {
 export function getEtis(req, res) {
   Eti.find()
   .then(etis => {
-    console.log(etis);
     res.status(200).json(etis);
   })
   .catch(err => {
