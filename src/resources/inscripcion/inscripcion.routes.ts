@@ -6,5 +6,6 @@ export const inscripcionRoutes = express.Router({mergeParams: true});
 inscripcionRoutes.post('/', inscripcionController.createInscripcion);
 inscripcionRoutes.put('/:inscripcionId', inscripcionController.updateInscripcion);
 inscripcionRoutes.get('/:inscripcionId', inscripcionController.getInscripcion);
+inscripcionRoutes.get('/:inscripcionId/reenviarmail', inscripcionController.reenviarMail);
 inscripcionRoutes.get('/', inscripcionController.getInscripciones);
 inscripcionRoutes.delete('/:inscripcionId', inscripcionController.deleteInscripcion);
