@@ -112,7 +112,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
   let alojamiento = inscripcion.alojamiento ? eti.precioAlojamiento : 0;
   let seminario = inscripcion.seminario ? eti.precioSeminario : 0;
   let remera = inscripcion.remera ? eti.precioRemera : 0;
-  let totalAPagar = eti.precioCombo + alojamiento + seminario;
+  let totalAPagar = eti.precioCombo + alojamiento + seminario + remera;
 
   // setup email data with unicode symbols
   let mailOptions = {
