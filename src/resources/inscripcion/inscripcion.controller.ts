@@ -105,8 +105,7 @@ export function reenviarMail(req, res) {
   Eti.findById(req.params.etiId).exec()
     .then(eti => {
       let inscripcion = _.find(eti.inscripciones, { '_id': ObjectId(req.params.inscripcionId) });
-
-      User.find({ usuario: inscripcion._id })
+      User.findOne({ usuario: inscripcion.documento })
       .then((usuarioCreado:any) => {
         var transporter = nodemailer.createTransport({
               service: 'Outlook365', // Office 365 server
