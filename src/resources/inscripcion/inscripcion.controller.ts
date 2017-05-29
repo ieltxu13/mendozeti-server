@@ -133,6 +133,7 @@ export function reenviarMail(req, res) {
           <li>Desde Argentina</li>
           <b>Al banco Credicoop (191) Suc. Mendoza (115) Cta CA $ Nro 0182844</b>
           <b>Titular PANNOCCHIA JOSE LUCIANO</b>
+          <b>CUIL: 20121870100</b>
           <b>CBU 1910115855111501828449</b>
           ———————
           <li>Desde OTRO PAIS</li>
@@ -226,6 +227,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
     <li>Desde Argentina</li>
     <b>Al banco Credicoop (191) Suc. Mendoza (115) Cta CA $ Nro 0182844</b>
     <b>Titular PANNOCCHIA JOSE LUCIANO</b>
+    <b>CUIL: 20121870100</b>
     <b>CBU 1910115855111501828449</b>
     ———————
     <li>Desde OTRO PAIS</li>
