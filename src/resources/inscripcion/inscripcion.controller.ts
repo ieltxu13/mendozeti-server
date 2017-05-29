@@ -121,40 +121,35 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
     subject: `Confirmación Pre inscripcion Mendozeti ✔ ${inscripcion.nombre} ${inscripcion.apellido}`, // Subject line
     text: '', // plain text body
     html: `
-    <h2>YA ESTAS PRE-INSCRIPTO!!! </h2>
-    <h3>Pasos a seguir:</h3>
-    <p>En el plazo de SIETE (7) DIAS HÁBILES deberás:
-    <p>1) hacer el deposito/transferencia en  esta cuenta:</p>
+    <h4>YA ESTAS PRE-INSCRIPTO!!! :) …. pero te faltan dos pasos más, el pago y subir el comprobante del mismo … Tenés que hacer así:</h4>
 
-    RESIDENTES EN ARGENTINA
-    Bco 191
-    Suc 115
-    Cta CA $
-    Nro Cta. 0182844
-    PANNOCCHIA JOSE LUCIANO
-    CBU 1910115855111501828449
+    <p>1) <b>PAGO:</b> Hacé la transferencia o depósito en la cuenta bancaria del ETI</p>
+
+    <li>Desde Argentina</li>
+    <b>Al banco Credicoop (191) Suc. Mendoza (115) Cta CA $ Nro 0182844</b>
+    <b>Titular PANNOCCHIA JOSE LUCIANO</b>
+    <b>CBU 1910115855111501828449</b>
     ———————
-    RESIDENTES EN EL EXTRANJERO
-    cta.Bco Credicoop MendozETI.
-    Caja Ahorro
-    Swiff: "BCOOAABA"
-    Nro.Cta. 18233/2
-    CBU 1910115855111501828449
-    Sucursal: 115
-    Domicilio: 9 de Julio 1228-Cdad-Mza.
+    <li>Desde OTRO PAIS</li>
+    <b>Caja Ahorro Swiff: "BCOOAABA"</b>
+    <b>Nro.Cta. 18233/2   -   CBU 1910115855111501828449</b>
+    <b>Sucursal: 115 - Domicilio: 9 de Julio 1228-Cdad-Mza.</b>
 
-    <p>2) Envianos el comprobante con estas credenciales: </p>
+    <p>2) <b>SUBIR COMPROBANTE.</b> Ahora tenés que SUBIR AL SISTEMA una imagen del comprobante de pago y los datos de referencia para individualizar los pagos del                     depósito. <b>El depósito</b> debe ser por el combo y <b>podrás incluir  en el mismo depósito, LOS OPCIONALES que elegiste al inscribirte (seminario y/o remera y/o alojamiento)</b></p>
+    <p>Estas son tus CREDENCIALES (usuario dni y clave generada por sistema) para ingresar al SISTEMA.</p>
     <p style="color: red; font-weight: bold;">Usuario:  ${usuarioCreado.usuario}</p>
     <p style="color: red; font-weight: bold;">Contraseña: ${usuarioCreado.password}</p>
-    <p>una vez adentro, podrás subir un archivo de tu computadoracon la imagen o pdf del comprobante para completar la INSCRIPCION.
-    <p>Entra <a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
+    <p><b>Una vez en que hiciste el deposito podes entrar al SISTEMA y SUBIR COMPROBANTE haciendo click …. </b><a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
+<br>
+    <p><b>Tenés un plazo 7 días hábiles para subir el comprobante, si no lo haces tu solicitud de inscripción  quedará sin efecto y deberas inscribirte nuevamente.</b></p>
 
-    <h3>NO TE OLVIDES!!</h3>
-    <p>El comprobante deberas guardarlo y tenerlo al momento de la ACREDITACION en Mendoza.</p>
-    <p>Si el deposito corresponde a mas de un inscripto deberas subir nuevamente el comprobante a nombre del/l@s inscript@s. entrando al sistema con las credenciales enviadas al correo para esa persona</p>
-    <p>En un plazo de 72 hs. podrás comprobar tu estado de "INSCRIPCION" entrando <a href="http://inscripcioneseti.com/eti/${eti._id}">AQUÍ</a>.</p>
-    <p>Tambien podrás enviar el comprobante a inscripciones.mendozeti@gmail.com indicando a quienes corresponde el deposito.</p>
-
+    <h3>IMPORTANTE LEER AQUÍ!!</h3>
+    <ul>
+    <li>La inscripción es PERSONAL e INTRANSFERIBLE y por SISTEMA. No compres combos a nadie. Si te arrepentiste o no podés  participar del ETI podes renunciar a tu inscripción y te devolveremos dinero.</li>
+    <li>Si el depósito corresponde a más de un solicitante, cada uno deberá subir el comprobante al SISTEMA, entrando con las credenciales de usuario y contraseña que recibió en el CORREO que le enviamos y tiene en SU CASILLA DE MAILS (la dirección de mail que puso en el formulario)</li>
+    <li>No olviden que tienen SIETE DIAS HABILES PARA SUBIR EL COMPROBANTE  DEL PAGO (imagen jpg) al SISTEMA , SI NO LO HACEN LA INSCRIPCIÓN SE CAE AUTOMATICAMENTE  Y DEBERÁN INICIAR EL PROCESO DE INSCRIPCION NUEVAMENTE!!!</li>
+    <li>Costos</li>
+    </ul>
 
    <p>Tenés que transferir el valor  de:$ ${totalAPagar} </p>
    <p>
@@ -165,8 +160,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
    <p>${inscripcion.seminario ? '-SEMINARIO: ($' + eti.precioSeminario + ')' : ''}</p>
    <p>${inscripcion.remera ? '-REMERA: ($' + eti.precioRemera + ')' : ''}</p>
 
-   <p style="color: red">No te olvides el PLAZO: 7 DIAS desde que enviamos este correo
-   para hacer el DEPÓSITO y SUBIR EL COMPROBANTE!!!!</p>
+   PREGUNTAS Y DUDAS? … escribimos a mendozeti@gmail.com
      `
 
   };
