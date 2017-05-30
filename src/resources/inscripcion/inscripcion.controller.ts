@@ -138,7 +138,7 @@ export function reenviarMail(req, res) {
           ———————
           <li>Desde OTRO PAIS</li>
           <b>Caja Ahorro Swiff: "BCOOAABA"</b>
-          <b>Nro.Cta. 18233/2   -   CBU 1910115855111501828449</b>
+          <b>Nro.Cta. 0182844   -   CBU 1910115855111501828449</b>
           <b>Sucursal: 115 - Domicilio: 9 de Julio 1228-Cdad-Mza.</b>
 
           <p>2) <b>SUBIR COMPROBANTE.</b> Ahora tenés que SUBIR AL SISTEMA una imagen del comprobante de pago y los datos de referencia para individualizar los pagos del                     depósito. <b>El depósito</b> debe ser por el combo y <b>podrás incluir  en el mismo depósito, LOS OPCIONALES que elegiste al inscribirte (seminario y/o remera y/o alojamiento)</b></p>
@@ -232,7 +232,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
     ———————
     <li>Desde OTRO PAIS</li>
     <b>Caja Ahorro Swiff: "BCOOAABA"</b>
-    <b>Nro.Cta. 18233/2   -   CBU 1910115855111501828449</b>
+    <b>Nro.Cta. 0182844  -   CBU 1910115855111501828449</b>
     <b>Sucursal: 115 - Domicilio: 9 de Julio 1228-Cdad-Mza.</b>
 
     <p>2) <b>SUBIR COMPROBANTE.</b> Ahora tenés que SUBIR AL SISTEMA una imagen del comprobante de pago y los datos de referencia para individualizar los pagos del                     depósito. <b>El depósito</b> debe ser por el combo y <b>podrás incluir  en el mismo depósito, LOS OPCIONALES que elegiste al inscribirte (seminario y/o remera y/o alojamiento)</b></p>
