@@ -21,8 +21,11 @@ export interface IInscripcion {
   fechaInscripcion: Date;
   fechaPreInscripcion: Date;
   referenciaComprobante: string;
+  fechaComprobante: Date;
+  horaComprobante: string;
   remera: boolean;
   talleRemera: string;
   abrazo: string;
   notas: string;
+  observado: boolean;
 }
