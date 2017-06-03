@@ -27,7 +27,7 @@ export let InscripcionSchema: Schema = new Schema({
   fechaPreInscripcion: Date,
   referenciaComprobante: String,
   fechaComprobante: Date,
-  horaComprobante: String,
+  montoComprobante: String,
   remera: Boolean,
   talleRemera: String,
   abrazo: String,
