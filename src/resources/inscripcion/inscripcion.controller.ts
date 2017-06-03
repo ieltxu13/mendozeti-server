@@ -327,6 +327,13 @@ export function updateInscripcion(req, res) {
               res.send();
             });
           } else {
+            if (inscripcionEnEspera) {
+              createUsuarioPreInscripto(eti, inscripcionEnEspera).then(usuarioCreado => {
+                handleUsusarioPreInscripto(eti, inscripcionEnEspera, usuarioCreado, res);
+              },
+              error => res.status(500).send('Error al actualizar inscripcion')
+              )
+            }
             res.send();
           }
         },
@@ -363,5 +370,23 @@ export function getInscripciones(req, res) {
 }
 
 export function deleteInscripcion(req, res) {
-  return res.status(500).send('Sin implementar');
+  Eti.findOne({
+    '_id': req.params.etiId
+  }).exec()
+    .then(eti => {
+      let inscripcionIndex = _.findIndex(eti.inscripciones, { '_id': ObjectId(req.params.inscripcionId) });
+      eti.inscripciones = [
+        ...eti.inscripciones.slice(0, inscripcionIndex),
+        ...eti.inscripciones.slice(inscripcionIndex + 1)
+      ];
+      eti.save().then((eti) => {
+        res.send('ok eliminado')
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    })
 }
