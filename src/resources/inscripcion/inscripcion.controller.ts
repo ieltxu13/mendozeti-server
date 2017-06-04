@@ -281,6 +281,9 @@ export function updateInscripcion(req, res) {
     .then(eti => {
       let inscripcionIndex = _.findIndex(eti.inscripciones, { '_id': ObjectId(req.params.inscripcionId) });
       let estadoViejo = eti.inscripciones[inscripcionIndex].estado;
+      if (req.body.estado == 'Pre inscripto' && estadoViejo == 'En lista de espera') {
+        req.body.fechaPreInscripcion = new Date();
+      }
       eti.inscripciones = [
         ...eti.inscripciones.slice(0, inscripcionIndex),
         req.body,
@@ -328,6 +331,13 @@ export function updateInscripcion(req, res) {
             });
           } else {
             if (inscripcionEnEspera) {
+              createUsuarioPreInscripto(eti, inscripcionEnEspera).then(usuarioCreado => {
+                handleUsusarioPreInscripto(eti, inscripcionEnEspera, usuarioCreado, res);
+              },
+              error => res.status(500).send('Error al actualizar inscripcion')
+              )
+            }
+            if (req.body.estado == 'Pre inscripto' && estadoViejo == 'En lista de espera') {
               createUsuarioPreInscripto(eti, inscripcionEnEspera).then(usuarioCreado => {
                 handleUsusarioPreInscripto(eti, inscripcionEnEspera, usuarioCreado, res);
               },
