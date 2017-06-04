@@ -338,8 +338,8 @@ export function updateInscripcion(req, res) {
               )
             }
             if (req.body.estado == 'Pre inscripto' && estadoViejo == 'En lista de espera') {
-              createUsuarioPreInscripto(eti, inscripcionEnEspera).then(usuarioCreado => {
-                handleUsusarioPreInscripto(eti, inscripcionEnEspera, usuarioCreado, res);
+              createUsuarioPreInscripto(eti, req.body).then(usuarioCreado => {
+                handleUsusarioPreInscripto(eti, req.body, usuarioCreado, res);
               },
               error => res.status(500).send('Error al actualizar inscripcion')
               )
