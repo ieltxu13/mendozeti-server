@@ -32,11 +32,11 @@ export function createInscripcion(req, res) {
 
 function updateEti(eti, inscripcion, req, res) {
   // eti.inscripciones = [ ...eti.inscripciones,  inscripcion ];
-  inscripcion.fechaInscripcion = new Date();
   eti.inscripciones.push(inscripcion);
   eti.save()
     .then(() => {
       if (inscripcion.estado == "Pre inscripto") {
+        inscripcion.fechaPreInscripcion = new Date();
         createUsuarioPreInscripto(eti, inscripcion).then(usuarioCreado => {
           handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res);
         },
