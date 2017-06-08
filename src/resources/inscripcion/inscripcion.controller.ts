@@ -192,6 +192,60 @@ export function reenviarMail(req, res) {
     });
 }
 
+export function mailAvisoVencimiento(req, res) {
+  Eti.findById(req.params.etiId).exec()
+    .then(eti => {
+      let mails = _.map(_.filter(eti.inscripciones, (inscripto: any) => {
+        let fechaDeHoy = new Date().getDate();
+        let fechaVencimiento = contarDiasHabiles(inscripto.fechaPreInscripcion, 7).getDate();
+        return inscripto.estado == 'Pre inscripto' && inscripto.comprobante == undefined && fechaVencimiento == fechaDeHoy + 1;
+      }), 'email');
+      if(!mails.length) {
+        res.send('nadie a quien avisar');
+      }
+
+      // create reusable transporter object using the default SMTP transport
+      var transporter = nodemailer.createTransport({
+            service: 'Outlook365', // Office 365 server
+            auth: {
+                user: 'mendozeti@inscripcioneseti.com',
+                pass: '2017!mendozeti'
+            }
+        });
+
+      // setup email data with unicode symbols
+      let mailOptions = {
+        from: '"Mendozeti" <mendozeti@inscripcioneseti.com>', // sender address
+        to: mails, // list of receivers
+        subject: `QUEDA UN DÍA PARA HACER TU PAGO!`, // Subject line
+        text: '', // plain text body
+        html: `
+        <p>¡¡¡El mendozeti va a estar buenísimo!! Después no digas que no te avisamos!!</p>
+        <p>😀😆😊😋😎😍😇☺😛😚😚😘</p>
+
+        <p>Hola!!!!!</p>
+        <p>Este email es para recordarte que <span style="color: red">¡sólo <b>te queda 1 día</b> para hacer el pago y subir el comprobante!</span>  (Antes de subir el comprobante al sistema, fijate que no pese más de 1MB, si no sabes cómo hacerlo, envialo a mendozeti@gmail.com, con tu nombre y DNI).
+        Si no recibimos el comprobante pasado ese período, tu inscripción se vence y va a ser dada de baja.
+        Si esto sucede, vas a tener que inscribirte otra vez. Si hay gente en lista de espera, vas a quedar después de ellos y puede que pierdas tu lugar</p>
+        <p><b>No te duermas...</b></p>
+        <p>Abrazo del equipo Mendozeti!!!</p>
+      `
+      };
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          res.json('Error al enviar mail de aviso');
+          return console.log(error);
+        }
+        console.log('Message %s sent: %s', info.messageId, info.response);
+        res.json(mails);
+      });
+    })
+    .catch(err => {
+      res.status(500).send('Error al enviar mail de aviso');
+    })
+}
 function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
   // create reusable transporter object using the default SMTP transport
   // let transporter = nodemailer.createTransport({
@@ -399,4 +453,22 @@ export function deleteInscripcion(req, res) {
     .catch(err => {
       res.status(500).send(err);
     })
+}
+
+function contarDiasHabiles(fecha, dias): Date{
+  let diasDeLaSemana = [1, 2, 3, 4, 5];
+
+  let msPorDia = 1000*60*60*24;
+  let msFecha = fecha.getTime();
+  let diasHabilesPasados = 1;
+  let fechaPasadosLosDias;
+  while(diasHabilesPasados <= dias) {
+    msFecha = msFecha + msPorDia;
+    let mañanaDate = new Date(msFecha);
+    if(_.includes(diasDeLaSemana, mañanaDate.getDay())) {
+      diasHabilesPasados++;
+      fechaPasadosLosDias = mañanaDate;
+    }
+  }
+  return fechaPasadosLosDias;
 }
