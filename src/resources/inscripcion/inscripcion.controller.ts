@@ -384,6 +384,41 @@ export function updateInscripcion(req, res) {
               res.send();
             });
           } else {
+            if(req.body.estado == 'Vencido' && estadoViejo == 'Pre inscripto') {
+              // create reusable transporter object    "nombre": "Verónica",
+              var transporter = nodemailer.createTransport({
+                    service: 'Outlook365', // Office 365 server
+                    auth: {
+                        user: 'mendozeti@inscripcioneseti.com',
+                        pass: '2017!mendozeti'
+                    }
+                });
+
+              // setup email data with unicode symbols
+              let mailOptions = {
+                from: '"Mendozeti" <mendozeti@inscripcioneseti.com>', // sender address
+                to: req.body.email, // list of receivers
+                subject: `Comunicado del equipo Mendozeti ✔ ${req.body.nombre} ${req.body.apellido}`, // Subject line
+                text: '', // plain text body
+                html: `
+                <p>Pepe Honguito,</p>
+                <p>Tu plazo para hacer el pago venció y tu inscripción se ha dado de baja 😔</p>
+
+                <p>Pero todavía podes participar... </p>
+                <p>Inscribite nuevamente!! </p>
+
+                <p>¡¡El mendozeti va a estar buenísimo!! Te lo vas a perder???</p>
+                <p>😀😆😊😋😎😍🤗😇☺😛😚😚😘</p>
+
+                <p>Abrazo del equipo</p>
+              ` // html body
+              };
+
+              // send mail with defined transport object
+              transporter.sendMail(mailOptions, (error, info) => {
+              });
+            }
+
             if (inscripcionEnEspera) {
               createUsuarioPreInscripto(eti, inscripcionEnEspera).then(usuarioCreado => {
                 handleUsusarioPreInscripto(eti, inscripcionEnEspera, usuarioCreado, res);
