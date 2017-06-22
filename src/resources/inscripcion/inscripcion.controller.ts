@@ -295,7 +295,7 @@ function handleUsusarioPreInscripto(eti, inscripcion, usuarioCreado, res) {
     <p style="color: red; font-weight: bold;">Contraseña: ${usuarioCreado.password}</p>
     <p><b>Una vez en que hiciste el deposito podes entrar al SISTEMA y SUBIR COMPROBANTE haciendo click …. </b><a href="http://inscripcioneseti.com/login">AQUÍ</a></p>
 <br>
-    <p><b>Tenés un plazo 7 días hábiles para subir el comprobante, si no lo haces tu solicitud de inscripción  quedará sin efecto y deberas inscribirte nuevamente.</b></p>
+    <p><b>Tenés tiempo hasta el 30/06 para subir el comprobante, si no lo haces tu solicitud de inscripción  quedará sin efecto y deberas inscribirte nuevamente.</b></p>
 
     <h3>IMPORTANTE LEER AQUÍ!!</h3>
     <ul>
@@ -401,7 +401,7 @@ export function updateInscripcion(req, res) {
                 subject: `Comunicado del equipo Mendozeti ✔ ${req.body.nombre} ${req.body.apellido}`, // Subject line
                 text: '', // plain text body
                 html: `
-                <p>Pepe Honguito,</p>
+                <p>${req.body.nombre} ${req.body.apellido},</p>
                 <p>Tu plazo para hacer el pago venció y tu inscripción se ha dado de baja 😔</p>
 
                 <p>Pero todavía podes participar... </p>
