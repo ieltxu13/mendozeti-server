@@ -9,4 +9,4 @@ inscripcionRoutes.get('/maildeaviso', inscripcionController.mailAvisoVencimiento
 inscripcionRoutes.get('/:inscripcionId', inscripcionController.getInscripcion);
 inscripcionRoutes.get('/:inscripcionId/reenviarmail', inscripcionController.reenviarMail);
 inscripcionRoutes.get('/', inscripcionController.getInscripciones);
-inscripcionRoutes.delete('/:inscripcionId', inscripcionController.deleteInscripcion);
+//inscripcionRoutes.delete('/:inscripcionId', inscripcionController.deleteInscripcion);
